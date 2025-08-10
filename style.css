@@ -1,0 +1,226 @@
+/* --- 基本設定 & フォント --- */
+:root {
+    --bg-grad-start: #0d143b; /* より紺色に */
+    --bg-grad-end: #2c215c;
+    --text-color: #ffffff;
+    --accent-pink: #ffc2e2;
+    --accent-blue: #bde0fe;
+    --gold: #f7d060;
+    --silver: #d3d3d3;
+    --card-back: #1e1548;
+    --font-title: 'Yuji Syuku', serif;
+    --font-body: 'Kiwi Maru', serif;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    color: var(--text-color);
+    background: linear-gradient(135deg, var(--bg-grad-start), var(--bg-grad-end));
+    background-attachment: fixed;
+    text-align: center;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- 星空の背景 --- */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(2px 2px at 20% 30%, var(--silver), transparent), /* 星を大きく */
+        radial-gradient(2px 2px at 80% 10%, var(--gold), transparent),
+        radial-gradient(2px 2px at 50% 50%, var(--text-color), transparent),
+        radial-gradient(3px 3px at 90% 70%, var(--silver), transparent),
+        radial-gradient(3px 3px at 30% 85%, var(--gold), transparent),
+        radial-gradient(2px 2px at 10% 90%, var(--text-color), transparent),
+        radial-gradient(2px 2px at 70% 95%, var(--silver), transparent),
+        radial-gradient(3px 3px at 5% 5%, var(--gold), transparent);
+    z-index: -1;
+    animation: sparkle 10s linear infinite;
+}
+
+@keyframes sparkle {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* --- コンテナ & ヘッダー --- */
+.container {
+    padding: 20px;
+    max-width: 900px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.main-header {
+    margin-bottom: 40px;
+    animation: fadeInDown 1s ease-out;
+}
+
+.title {
+    font-family: var(--font-title);
+    font-size: 2.8rem;
+    margin: 0 0 10px;
+    text-shadow: 0 0 10px var(--accent-pink), 0 0 20px var(--accent-pink);
+}
+
+.description {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #e0e0e0;
+}
+
+/* --- カード --- */
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    perspective: 1000px; /* 3D効果の視点 */
+    flex-wrap: wrap;
+}
+
+.card {
+    width: 180px;
+    height: 270px;
+    cursor: pointer;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s, opacity 0.5s, filter 0.4s;
+    animation: fadeInUp 0.5s ease-out backwards;
+}
+
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.4s; }
+
+.card:not(.is-flipped):hover {
+    transform: translateY(-10px);
+    filter: drop-shadow(0 0 12px var(--accent-pink));
+}
+
+.card.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* 裏面を非表示 */
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.card-back {
+    background-image: url('images/card-back.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.card-front {
+    background-color: #fff;
+    transform: rotateY(180deg); /* 最初から裏返しておく */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- 結果表示 --- */
+.result-container {
+    animation: fadeIn 1s ease-out;
+}
+
+.result-title {
+    font-family: var(--font-title);
+    font-size: 1.8rem;
+    color: var(--accent-pink);
+    text-shadow: 0 0 8px var(--accent-pink);
+    margin-bottom: 20px;
+}
+
+.result-content {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 450px;
+    margin: 0 auto;
+    border: 1px solid var(--accent-blue);
+    box-shadow: 0 0 20px rgba(189, 224, 254, 0.3);
+}
+
+#result-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid var(--gold);
+    margin-bottom: 20px;
+    background-color: #fff;
+    transition: transform 0.3s ease;
+}
+
+#result-image:hover {
+    animation: image-sparkle 2s ease-in-out infinite;
+}
+
+#result-name {
+    font-size: 1.5rem;
+    margin: 0 0 10px;
+    color: var(--text-color);
+}
+
+#result-comment {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #e0e0e0;
+    margin: 0;
+}
+
+/* --- フッター --- */
+.footer-message {
+    margin-top: 40px;
+    color: var(--accent-blue);
+    animation: fadeInUp 1s ease-out;
+}
+
+/* --- ユーティリティ --- */
+.hidden {
+    display: none !important;
+}
+
+/* --- アニメーション --- */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+@keyframes image-sparkle {
+    0%, 100% {
+        transform: scale(1.02);
+        box-shadow: 0 0 8px 2px rgba(255, 194, 226, 0.7), 0 0 10px 4px rgba(247, 208, 96, 0.5);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 12px 4px rgba(189, 224, 254, 0.7), 0 0 15px 8px rgba(255, 194, 226, 0.5);
+    }
+}
+
+/* --- レスポンシブ対応 (スマホ) --- */
+@media (max-width: 768px) {
+    .title { font-size: 2.2rem; }
+    .description { font-size: 0.9rem; }
+    .card-container { flex-direction: column; align-items: center; gap: 25px; }
+    .card { width: 160px; height: 240px; }
+    .result-content { padding: 20px; }
+    #result-image { width: 120px; height: 120px; }
+    #result-name { font-size: 1.3rem; }
+    #result-comment { font-size: 0.9rem; }
+}
+        

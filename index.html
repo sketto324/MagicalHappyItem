@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>魔法のアイテム占い</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@300;400&family=Yuji+Syuku&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="main-header">
+            <h1 class="title">魔法のアイテム占い</h1>
+            <p class="description">3枚のカードの中から、気になる1枚を選んでね。<br>あなたの今日をもっときらめかせる、特別なアイテムが見つかるよ…✨</p>
+        </header>
+
+        <main>
+            <div id="card-container" class="card-container">
+                <!-- カードはJSで生成 -->
+            </div>
+
+            <div id="result-container" class="result-container hidden">
+                <h2 class="result-title">今日のラッキーアイテムは…</h2>
+                <div class="result-content">
+                    <img id="result-image" src="" alt="ラッキーアイテム">
+                    <h3 id="result-name"></h3>
+                    <p id="result-comment"></p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p id="footer-message" class="footer-message hidden">またあしたも占って、毎日をもっとハッピーにしよう🌙</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
