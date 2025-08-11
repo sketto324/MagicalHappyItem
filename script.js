@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultName = document.getElementById('result-name');
     const resultComment = document.getElementById('result-comment');
     const footerMessage = document.getElementById('footer-message');
+    const description = document.querySelector('.description');
 
     let isCardChosen = false;
 
@@ -93,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 1.5秒後に結果を表示
         setTimeout(() => {
+            description.classList.add('hidden');
             cardContainer.classList.add('hidden');
             resultContainer.classList.remove('hidden');
             footerMessage.classList.remove('hidden');
